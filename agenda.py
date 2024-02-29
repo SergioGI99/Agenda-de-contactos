@@ -1,8 +1,11 @@
-import re
+import re, json
 
-contactos = {
-"sergio" : 671408033
-}
+contactos = {}
+
+stored_agenda = open("stored-agenda.json", "r+")
+
+contactos = json.load(stored_agenda)
+
 def agenda(action):
 
 
@@ -16,12 +19,12 @@ def agenda(action):
             return input_name()
     
     def input_number():
-        inputNumber:int = input("Escribe un número de telefono: ")
+        inputNumber: int = input("Escribe un número de telefono: ")
         patternNumber = r"[0-9]"
-        if re.search(patternNumber, inputNumber):
+        if re.search(patternNumber, inputNumber) and len(inputNumber) == 9:
             return inputNumber
         else:
-            print("Numero de telefono invalido.")
+            print("Numero de telefono invalido. (Compruebe que el número tenga 9 caracteres numéricos)")
             return input_number()
 
     def añadir():
@@ -63,6 +66,10 @@ def agenda(action):
         else:
             print("El contacto no existe")
 
+    def agenda():
+        for contacto in contactos:
+            print(contacto, contactos[contacto])
+
     if action == "añadir":
         añadir()
 
@@ -75,6 +82,9 @@ def agenda(action):
     elif action == "buscar":
         buscar()
 
+    elif action == "agenda":
+        agenda()
+
     elif action == "salir":
         return print("Cerrando la agenda de contactos...")
     
@@ -86,7 +96,12 @@ def agenda(action):
 
 
 
-agenda(input("Que acción quieres realizar(añadir/eliminar/actualiar/buscar/salir): "))
+agenda(input("Que acción quieres realizar(añadir/eliminar/actualiar/buscar/agenda/salir): "))
 
+
+stored_agenda = open("stored-agenda.json", "w+")
+
+json.dump(contactos, stored_agenda)
+stored_agenda.close
 
 print("Se ha cerrado la agenda de contactos.")
