@@ -38,6 +38,8 @@ def agenda(action):
 
     def buscar():
         name = input_name()
+        if name == "Wally":
+            print("La ultima vez fue visto con un jersey rojo y blanco a rallas.")
         if name in contactos.keys():
             search = contactos.get(name)
             print(f"El numero de ", name, " es ", search)
