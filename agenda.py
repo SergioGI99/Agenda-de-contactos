@@ -3,7 +3,6 @@ import re, json
 contactos: dict = {}
 
 stored_agenda = open("stored-agenda.json", "r+")
-
 contactos = json.load(stored_agenda)
 
 def agenda(action: str):
@@ -96,7 +95,6 @@ def agenda(action: str):
     agenda(input("Selecciona otra acción: "))
 
 agenda(input("¿Que acción quieres realizar?\n - añadir\n - eliminar\n - actualiar\n - buscar\n - lista\n - salir\n: "))
-
 
 stored_agenda = open("stored-agenda.json", "w+")
 json.dump(contactos, stored_agenda)
