@@ -1,8 +1,8 @@
 Agenda de contactos desarrollada por SergioGI99 (Jokos)
 -------------------------------------------------------
-Por ahora la agenda corre en terminal, no tendras más
-que correr el programa y seguir las instrucciones que
-te aparecen en consola.
+Por ahora la agenda corre en terminal, no tendras más que
+correr el archivo agenda.py y seguir las indicaciones que
+aparecen en consola.
 
 Acciones:
         - añadir
@@ -11,8 +11,6 @@ Acciones:
         - buscar
         - lista
         - salir
-
-(IMPORTANTE: Para guardar los cambios es necesario salir)
 
 Gracias por probarlo ;D
 
