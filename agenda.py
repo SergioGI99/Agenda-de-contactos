@@ -1,12 +1,12 @@
 import re, json
 
-contactos = {}
+contactos: dict = {}
 
-stored_agenda = open("stored-agenda.json", "r")
+stored_agenda = open("stored-agenda.json", "r+")
 
 contactos = json.load(stored_agenda)
 
-def agenda(action):
+def agenda(action: str):
 
     def input_name():
         inputName: str = input("Escribe el nombre del contacto: ")
@@ -68,8 +68,11 @@ def agenda(action):
             print("El contacto no existe")
 
     def list():
-        for contacto in contactos:
-            print(contacto, contactos[contacto])
+        if len(contactos) == 0:
+            print("La agenda está vacía.")
+        else:
+            for contacto in contactos:
+                print(contacto, contactos[contacto])
 
     def exit():
         return print("Cerrando la agenda de contactos...")
@@ -90,18 +93,12 @@ def agenda(action):
     except:
         print(f"No se ha encontrado ninguna acción que se llame: {action}")
 
-    stored_agenda = open("stored-agenda.json", "w+")
-
-    json.dump(contactos, stored_agenda)
-    stored_agenda.close
-
-    agenda(input("Elije otra acción: "))
-    # agenda(input("Selecciona otra acción: "))
+    agenda(input("Selecciona otra acción: "))
 
 agenda(input("¿Que acción quieres realizar?\n - añadir\n - eliminar\n - actualiar\n - buscar\n - lista\n - salir\n: "))
 
-stored_agenda = open("stored-agenda.json", "w+")
 
+stored_agenda = open("stored-agenda.json", "w+")
 json.dump(contactos, stored_agenda)
 stored_agenda.close
 
