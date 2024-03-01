@@ -4,6 +4,16 @@ Por ahora la agenda corre en terminal, no tendras más
 que correr el programa y seguir las instrucciones que
 te aparecen en consola.
 
+Acciones:
+        - añadir
+        - eliminar
+        - actualizar
+        - buscar
+        - lista
+        - salir
+
+(IMPORTANTE: Para guardar los cambios es necesario salir)
+
 Gracias por probarlo ;D
 
 -------------------------------------------------------

@@ -2,12 +2,11 @@ import re, json
 
 contactos = {}
 
-stored_agenda = open("stored-agenda.json", "r+")
+stored_agenda = open("stored-agenda.json", "r")
 
 contactos = json.load(stored_agenda)
 
 def agenda(action):
-
 
     def input_name():
         inputName: str = input("Escribe el nombre del contacto: ")
@@ -27,7 +26,7 @@ def agenda(action):
             print("Numero de telefono invalido. (Compruebe que el número tenga 9 caracteres numéricos)")
             return input_number()
 
-    def añadir():
+    def add():
         name = input_name()
         if not name in contactos.keys():
             number = input_number()
@@ -36,7 +35,7 @@ def agenda(action):
         else:
             print("El contacto ya existe")
 
-    def buscar():
+    def search():
         name = input_name()
         if name == "Wally":
             print("La ultima vez fue visto con un jersey rojo y blanco a rallas.")
@@ -46,7 +45,7 @@ def agenda(action):
         else:
             print("El contacto no existe")
 
-    def eliminar():
+    def delete():
         name = input_name()
         if name in contactos.keys():
             confirmation = input(f"Vuelve a escribir el nombre para confirmar:\n")
@@ -55,11 +54,11 @@ def agenda(action):
                 contactos.pop(name)
             else:
                 print("No coincide el nombre")
-                eliminar()
+                delete()
         else:
             print("El nombre no aparece en la agenda")
         
-    def actualizar():
+    def update():
         name = input_name()
         if name in contactos.keys():
             new_pass = input_number()
@@ -68,38 +67,38 @@ def agenda(action):
         else:
             print("El contacto no existe")
 
-    def agenda():
+    def list():
         for contacto in contactos:
             print(contacto, contactos[contacto])
 
-    if action == "añadir":
-        añadir()
-
-    elif action == "eliminar":
-        eliminar()
-    
-    elif action == "actualizar":
-        actualizar()
-    
-    elif action == "buscar":
-        buscar()
-
-    elif action == "agenda":
-        agenda()
-
-    elif action == "salir":
+    def exit():
         return print("Cerrando la agenda de contactos...")
-    
-    else:
+
+    actions: dict = {
+        "añadir": add,
+        "eliminar": delete,
+        "actualizar": update,
+        "buscar": search,
+        "lista": list
+    }
+
+    try:
+        if action == "salir":
+            return exit()
+        else:
+            actions[action]()
+    except:
         print(f"No se ha encontrado ninguna acción que se llame: {action}")
-        agenda(input("Selecciona otra acción: "))
+
+    stored_agenda = open("stored-agenda.json", "w+")
+
+    json.dump(contactos, stored_agenda)
+    stored_agenda.close
 
     agenda(input("Elije otra acción: "))
+    # agenda(input("Selecciona otra acción: "))
 
-
-
-agenda(input("Que acción quieres realizar(añadir/eliminar/actualiar/buscar/agenda/salir): "))
-
+agenda(input("¿Que acción quieres realizar?\n - añadir\n - eliminar\n - actualiar\n - buscar\n - lista\n - salir\n: "))
 
 stored_agenda = open("stored-agenda.json", "w+")
 
