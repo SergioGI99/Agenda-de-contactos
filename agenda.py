@@ -1,9 +1,10 @@
 import re, json
 
 contactos: dict = {}
-
-stored_agenda = open("stored-agenda.json", "r")
-contactos = json.load(stored_agenda)
+try:
+    stored_agenda = open("stored-agenda.json", "r")
+except:
+    stored_agenda = open("stored-agenda.json", "w")
 
 def agenda(action: str):
 
