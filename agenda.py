@@ -2,7 +2,7 @@ import re, json
 
 contactos: dict = {}
 
-stored_agenda = open("stored-agenda.json", "r+")
+stored_agenda = open("stored-agenda.json", "r")
 contactos = json.load(stored_agenda)
 
 def agenda(action: str):
@@ -24,12 +24,19 @@ def agenda(action: str):
         else:
             print("Numero de telefono invalido. (Compruebe que el número tenga 9 caracteres numéricos)")
             return input_number()
+        
+    def refresh():
+        refresh = open("stored-agenda.json", "w")
+        json.dump(contactos, refresh)
+        refresh.close
+
 
     def add():
         name = input_name()
         if not name in contactos.keys():
             number = input_number()
             contactos[name] = number
+            refresh()
             print(name, "ha sido añadido a la agenda.")
         else:
             print("El contacto ya existe")
@@ -49,8 +56,9 @@ def agenda(action: str):
         if name in contactos.keys():
             confirmation = input(f"Vuelve a escribir el nombre para confirmar:\n")
             if name == confirmation:
-                print(f"{name} ha sido eliminado de la agenda")
                 contactos.pop(name)
+                refresh()
+                print(f"{name} ha sido eliminado de la agenda")
             else:
                 print("No coincide el nombre")
                 delete()
@@ -60,8 +68,9 @@ def agenda(action: str):
     def update():
         name = input_name()
         if name in contactos.keys():
-            new_pass = input_number()
-            contactos[name] = new_pass
+            new_number = input_number()
+            contactos[name] = new_number
+            refresh()
             print(f"{name} ha sido actualizado")
         else:
             print("El contacto no existe")
@@ -95,9 +104,5 @@ def agenda(action: str):
     agenda(input("Selecciona otra acción: "))
 
 agenda(input("¿Que acción quieres realizar?\n - añadir\n - eliminar\n - actualiar\n - buscar\n - lista\n - salir\n: "))
-
-stored_agenda = open("stored-agenda.json", "w+")
-json.dump(contactos, stored_agenda)
-stored_agenda.close
 
 print("Se ha cerrado la agenda de contactos.")
