@@ -44,7 +44,7 @@ def agenda(action: str):
     def search():
         name = input_name()
         if name == "Wally":
-            print("La ultima vez fue visto con un jersey rojo y blanco a rallas.")
+            print("La ultima vez fue visto con un jersey de rallas rojas y blancas.")
         if name in contactos.keys():
             search = contactos.get(name)
             print(f"El numero de ", name, " es ", search)
@@ -80,7 +80,7 @@ def agenda(action: str):
             print("La agenda está vacía.")
         else:
             for contacto in contactos:
-                print(contacto, contactos[contacto])
+                print("- ", contacto, ":", contactos[contacto])
 
     def exit():
         return print("Cerrando la agenda de contactos...")
