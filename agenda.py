@@ -3,6 +3,7 @@ import re, json
 contactos: dict = {}
 try:
     stored_agenda = open("stored-agenda.json", "r")
+    contactos = json.load(stored_agenda)
 except:
     stored_agenda = open("stored-agenda.json", "w")
 
